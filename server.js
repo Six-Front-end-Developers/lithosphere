@@ -1,3 +1,5 @@
+import readEarthquakes from ('./database')
+
 // https://blog.risingstack.com/your-first-node-js-http-server/ tutorial to set up NodeJS server
 const express = require('express')
 const app = express()
@@ -20,4 +22,5 @@ app.get('/', (req, resp) => {
 app.get('/earthquakes', (req, resp) => {
   // Read from database, return it to clients as JSON
   console.log('HELLO! This is /earthquakes.')
+  let earthquakes = readEarthquakes()
 })
