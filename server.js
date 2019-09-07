@@ -13,7 +13,8 @@ app.listen(port, (err) => {
 
 app.get('/', (req, resp) => {
   // Render webpage
-  console.log('HELLO! This is the root /')
+  resp.sendFile('index.html', { root: __dirname });
+
 })
 
 app.get('/earthquakes', (req, resp) => {
