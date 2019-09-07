@@ -1,0 +1,24 @@
+{
+  "name": "lithosphere",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/six-frontend-devs/lithosphere.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/six-frontend-devs/lithosphere/issues"
+  },
+  "homepage": "https://github.com/six-frontend-devs/lithosphere#readme",
+  "dependencies": {
+    "better-sqlite3": "^5.4.3",
+    "express": "^4.17.1"
+  }
+}
