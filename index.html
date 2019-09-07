@@ -5,35 +5,30 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lithosphere</title>
-        <link rel="stylesheet" href="map.css" type="text/css"/>
+        <!-- Libraries and Frameworks -->
         <link rel="stylesheet" href="./libraries/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
         <script src="./libraries/jquery.js"></script>
         <script src="./libraries/jquery-jvectormap-2.0.3.min.js"></script>
         <script src="./libraries/jquery-jvectormap-world-mill.js"></script>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="index.css">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- Custom CSS/JS -->
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js"></script>
     </head>
     <body>
-        <div id="header_wrapper">
-            <h1>lithosphere.</h1>
+        <div id="main-wrapper">
+            <div id="header-wrapper">
+                    <h1>lithosphere.</h1>
+            </div>
+            <div id="world-map-wrapper">
+                <div id="world-map"></div>
+            </div>
         </div>
-        <div id="world-map" style="bottom: 0;width: 100%; height: 100%"></div>
-        <script>
-            $(function(){
-            $('#world-map').vectorMap({map: 'world_mill'});
-            });
-        </script>
         <div id="example">
             <p>{{ hello }}</p>
         </div> 
-        <script>
-            new Vue({
-                el: '#example',
-                data: { hello: 'Hello World!' }
-            })
-        </script>
     </body>
 </html>
