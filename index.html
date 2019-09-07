@@ -6,6 +6,11 @@
     <head>
         <meta charset="utf-8">
         <title>Lithosphere</title>
+        <link rel="stylesheet" href="map.css" type="text/css"/>
+        <link rel="stylesheet" href="./libraries/jquery-jvectormap-2.0.3.css" type="text/css" media="screen"/>
+        <script src="./libraries/jquery.js"></script>
+        <script src="./libraries/jquery-jvectormap-2.0.3.min.js"></script>
+        <script src="./libraries/jquery-jvectormap-world-mill.js"></script>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="index.css">
@@ -15,6 +20,12 @@
         <div id="header_wrapper">
             <h1>lithosphere.</h1>
         </div>
+        <div id="world-map" style="bottom: 0;width: 100%; height: 100%"></div>
+        <script>
+            $(function(){
+            $('#world-map').vectorMap({map: 'world_mill'});
+            });
+        </script>
         <div id="example">
             <p>{{ hello }}</p>
         </div> 
