@@ -16,7 +16,9 @@ var filteredList = []
 
 function filterEarthquakesForDate(fromDate, toDate, earthquakes) {
   filteredList = filteredList.filter((eq) => {
-    return fromDate <= eq.time <= toDate
+    //   console.log(`FROM: ${fromDate}, TO: ${toDate}, CURRENT: ${eq.time}`)
+    //   console.log(`EARTHQUAKE IS IN BETWEEN? ${fromDate <= eq.time && eq.time <= toDate}`)
+    return (fromDate <= eq.time) && (eq.time <= toDate)
   })
 }
 
