@@ -1,4 +1,4 @@
-var vueInstance
+var vueInstance;
 
 $(document).ready(function() {
     let exampleCoord = [[38.30,142.40],'Tokyo, Magnitude: 9, Date: 2011'];
@@ -31,5 +31,21 @@ $(document).ready(function() {
         el: '#example',
         data: { hello: 'Hello World!' }
     })
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8000/earthquakes",
+        dataType: 'json',
+        success: function(earthquakes){
+          console.log(earthquakes);
+        },
+        error: function( xhr, status, errorThrown ) {
+          /* Temp, for debugging. Remove/alter before push to production. */
+          alert( "Something went wrong! Check the console for logs." );
+          console.log( "Error: " + errorThrown );
+          console.log( "Status: " + status );
+          console.dir( xhr );
+        }
+      })
 
 })
