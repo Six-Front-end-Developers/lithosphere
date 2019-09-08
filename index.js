@@ -18,9 +18,6 @@ function filterEarthquakesForDate(fromDate, toDate, earthquakes) {
   filteredList = filteredList.filter((eq) => {
     return fromDate <= eq.time <= toDate
   })
-  
-  print(earthquakeList)
-  print(filteredList)
 }
 
 function filterEarthquakesForMagnitude(from, to, earthquakes) {
