@@ -28,7 +28,14 @@ function filterEarthquakesForMagnitude(from, to) {
 
 $(document).ready(function() {
     $('#datepicker-from').datepicker({
-        defaultDate: new Date("01/01/2000")
+        defaultDate: new Date("01/01/2000"),
+      onSelect: function () {
+        var newFromDate = $('#datepicker-from').datepicker('getDate');
+        var toDate = $('#datepicker-to').datepicker('getDate');
+        console.log(newFromDate)
+        console.log(toDate)
+        filterEarthquakesForDate(newFromDate.getTime(), toDate.getTime())
+      }
     });
     $('#datepicker-to').datepicker({
         defaultDate: new Date("09/07/2019")
