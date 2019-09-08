@@ -28,7 +28,7 @@ function filterEarthquakesForMagnitude(from, to) {
 
 $(document).ready(function() {
     $('#datepicker-from').datepicker({
-        defaultDate: new Date("01/01/2000"),
+        defaultDate: new Date("01/01/2019"),
       onSelect: function () {
         var newFromDate = $('#datepicker-from').datepicker('getDate');
         var toDate = $('#datepicker-to').datepicker('getDate');
@@ -38,15 +38,26 @@ $(document).ready(function() {
       }
     });
     $('#datepicker-to').datepicker({
-        defaultDate: new Date("09/07/2019")
+        defaultDate: new Date("09/07/2019"),
+        onSelect: function (newToDate) {
+        console.log(fromDate)
+        console.log(newToDate)
+        var fromDate = $('#datepicker-from').datepicker('getDate');
+        var newToDate = $('#datepicker-to').datepicker('getDate');
+        filterEarthquakesForDate(fromDate.getTime(), newToDate.getTime())
+      }
     });
-
-    $(".js-range-slider").ionRangeSlider({
-        type: "double",
-        min: 5,
-        max: 10,
-        step: 0.1
-    });
+  $(".js-range-slider").ionRangeSlider({
+    type: "double",
+    min: 5,
+    max: 10,
+    step: 0.1,
+    onFinish: function (slider) {
+      console.log(slider.from)
+      console.log(slider.to)
+      filterEarthquakesForMagnitude(slider.from, slider.to)
+    }
+  });
 
     $.ajax({
         type: "GET",
