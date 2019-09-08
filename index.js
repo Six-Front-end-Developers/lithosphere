@@ -28,8 +28,13 @@ $(document).ready(function() {
             
         ]
     });
-        $('#datepicker-from').datepicker();
-        $('#datepicker-to').datepicker();
+        $('#datepicker-from').datepicker({
+            defaultDate: new Date("01/01/2000")
+        });
+        $('#datepicker-to').datepicker({
+            defaultDate: new Date("09/07/2019")
+        });
+
         $(".js-range-slider").ionRangeSlider({
             type: "double",
             min: 5,
@@ -59,4 +64,17 @@ $(document).ready(function() {
         }
       })
 
+    $('#toggle-options').click(function() {
+        toggleOptions();
+    })
+
+    $('#overlay').click(function() {
+        toggleOptions();
+    })
+
 })
+
+function toggleOptions() {
+    $('#options').toggle();
+    $('#overlay').toggle();
+}
