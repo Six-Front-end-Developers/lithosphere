@@ -55,7 +55,7 @@ $(document).ready(function() {
       min: 5,
       max: 10,
       step: 0.1,
-      onFinish: function (slider) {
+      onChange: function (slider) {
         updateFilterForMagnitude(slider.from, slider.to)
         updateEarthquakes(filteredList)
       }
