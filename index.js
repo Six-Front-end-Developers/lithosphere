@@ -24,10 +24,8 @@ function filterEarthquakesForMagnitude(from, to, earthquakes) {
   var i = 0
   filteredList = filteredList.filter((eq) => {
     if (eq.mag >= from && eq.mag <= to) i++
-    console.log(`EQMAG: ${eq.mag}, FROM: ${from}, TO: ${to}, true: ${eq.mag >= from && eq.mag <= to}`)
     return eq.mag >= from && eq.mag <= to
   })
-  console.log(filteredList)
 }
 
 
@@ -37,10 +35,8 @@ $(document).ready(function() {
       onSelect: function () {
         var newFromDate = $('#datepicker-from').datepicker('getDate');
         var toDate = $('#datepicker-to').datepicker('getDate');
-        console.log(newFromDate)
-        console.log(toDate)
         updateFilterForDate(newFromDate.getTime(), toDate.getTime())
-        loadEarthquakes(filteredList)
+        updateEarthquakes(filteredList)
       }
     });
     $('#datepicker-to').datepicker({
@@ -48,22 +44,18 @@ $(document).ready(function() {
         onSelect: function (newToDate) {
           var fromDate = $('#datepicker-from').datepicker('getDate');
           var newToDate = $('#datepicker-to').datepicker('getDate');
-          console.log(fromDate)
-          console.log(newToDate)
           updateFilterForDate(fromDate.getTime(), newToDate.getTime())
-          loadEarthquakes(filteredList)
+          updateEarthquakes(filteredList)
       }
     });
     $(".js-range-slider").ionRangeSlider({
       type: "double",
-      min: 9,
+      min: 5,
       max: 10,
       step: 0.1,
       onFinish: function (slider) {
-        console.log(slider.from)
-        console.log(slider.to)
         updateFilterForMagnitude(slider.from, slider.to)
-        loadEarthquakes(filteredList)
+        updateEarthquakes(filteredList)
       }
     });
 
@@ -77,15 +69,9 @@ $(document).ready(function() {
             // Set earthquakes, then filter
             var fromDate = $('#datepicker-from').datepicker('getDate');
             var toDate = $('#datepicker-to').datepicker('getDate');
-            console.log(fromDate)
-            console.log(toDate)
             var slider = $(".js-range-slider").data("ionRangeSlider").result;
             var x = filterEarthquakesForMagnitude(slider.from, slider.to)
-            console.log(fromDate.getTime())
             filterEarthquakesForDate(fromDate.getTime(), toDate.getTime())
-
-            console.log(earthquakes);
-            console.log(filteredList)
             loadEarthquakes(filteredList);
         },
         error: function( xhr, status, errorThrown ) {
@@ -155,4 +141,19 @@ function loadEarthquakes(earthquakes) {
         }
     });
     
+}
+
+function updateEarthquakes(earthquakes) {
+    /*someMarkers = []
+    for (var eq of earthquakes) {
+        someMarkers.push({
+            latLng: [eq.latitude, eq.longitude],
+            name: eq.place,
+            mag: eq.mag
+        })
+    }
+    var x = $('#world-map').vectorMap('get', 'mapObject').markers
+    console.log(x);*/
+    $('#world-map').vectorMap('get', 'mapObject').remove()
+    loadEarthquakes(earthquakes)
 }
