@@ -12,48 +12,19 @@ class Earthquake {
 }
 
 $(document).ready(function() {
-    let EQs = [new Earthquake(6,6,6,6,6,6,6),new Earthquake(7,7,7,7,7,7,7)];
-    let exampleCoord = [[38.30,142.40],'Tokyo, Magnitude: 9, Date: 2011'];
-    let exampleCoord2 = [[50,100.40],'Tokyo, Magnitude: 9, Date: 2011'];
-    $(function(){
-        $('#world-map').vectorMap({
-        map: 'world_mill',
-        markerStyle: {
-            initial: {
-                fill: '#f52222',
-                stroke: '#2e2e2e'
-            }
-        },
-        markers: [
-            {latLng: exampleCoord[0], name: exampleCoord[1], Magnitude: new Earthquake(6,6,6,6,6,6,6)},
-            {latLng: exampleCoord2[0], name: exampleCoord2[1], style: {fill: '#344533'}},
-            
-        ],
-        onMarkerTipShow: function(event,label,index){
-            var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
-            label.html(
-                '<b>'+markers[index].config.Magnitude.mag +'</b><br/>'+exampleCoord2[1]+'</br>'
-            );
-        }
+    $('#datepicker-from').datepicker({
+        defaultDate: new Date("01/01/2000")
     });
-        $('#datepicker-from').datepicker({
-            defaultDate: new Date("01/01/2000")
-        });
-        $('#datepicker-to').datepicker({
-            defaultDate: new Date("09/07/2019")
-        });
+    $('#datepicker-to').datepicker({
+        defaultDate: new Date("09/07/2019")
+    });
 
-        $(".js-range-slider").ionRangeSlider({
-            type: "double",
-            min: 5,
-            max: 10,
-            step: 0.1
-        });
-
-    vueInstance = new Vue({
-        el: '#example',
-        data: { hello: 'Hello World!' }
-    })
+    $(".js-range-slider").ionRangeSlider({
+        type: "double",
+        min: 5,
+        max: 10,
+        step: 0.1
+    });
 
     $.ajax({
         type: "GET",
@@ -86,14 +57,13 @@ function toggleOptions() {
     $('#options').toggle();
     $('#overlay').toggle();
 }
-})
 
 function loadEarthquakes(earthquakes) {
     someMarkers = []
-    for (eq in earthquakes) {
+    for (var eq of earthquakes) {
         someMarkers.push({
-            latLng: [eq.lat, eq.log],
-            name: eq.name,
+            latLng: [eq.latitude, eq.longitude],
+            name: eq.place,
             mag: eq.mag
         })
     }
@@ -106,12 +76,7 @@ function loadEarthquakes(earthquakes) {
                 stroke: '#2e2e2e'
             }
         },
-        markers: [
-            
-            {latLng: exampleCoord[0], name: exampleCoord[1], Magnitude: new Earthquake(6,6,6,6,6,6,6)},
-            {latLng: exampleCoord2[0], name: exampleCoord2[1], style: {fill: '#344533'}},
-            
-        ],
+        markers: someMarkers,
         onMarkerTipShow: function(event,label,index){
             var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
             let current = markers[index].config

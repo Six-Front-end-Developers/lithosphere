@@ -24,5 +24,5 @@ app.get('/earthquakes', (req, resp) => {
   console.log('HELLO! This is /earthquakes.')
   let earthquakes = readEarthquakes()
   resp.setHeader('Content-Type', 'application/json')
-  resp.status(200).end(JSON.stringify(earthquakes.slice(0, 100)))
+  resp.status(200).end(JSON.stringify(earthquakes.slice(0, 1000)))
 })
