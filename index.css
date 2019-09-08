@@ -13,6 +13,19 @@ body {
     height: 100%;
 }
 
+#options {
+    text-align: center;
+}
+
+.calendar {
+    display: inline-block;
+}
+
+#sliders {
+    width: 50%;
+    display: inline-block;
+}
+
 h1 {
     font-family: 'Times New Roman', Times, serif;
 }
