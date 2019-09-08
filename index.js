@@ -1,4 +1,15 @@
 var vueInstance;
+class Earthquake {
+    constructor(mag, place, time, tz, lat, lon, depth) {
+        this.mag = mag
+        this.place = place
+        this.time = time
+        this.tz = tz
+        this.lat = lat
+        this.lon = lon
+        this.depth = depth
+    }
+}
 
 $(document).ready(function() {
     let exampleCoord = [[38.30,142.40],'Tokyo, Magnitude: 9, Date: 2011'];
