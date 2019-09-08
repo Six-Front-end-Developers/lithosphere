@@ -16,11 +16,13 @@ app.listen(port, (err) => {
 app.get('/', (req, resp) => {
   // Render webpage
   app.use('/', express.static(__dirname));
-  resp.sendFile('index.html', { root: __dirname });
+  resp.status(200).sendFile('index.html', { root: __dirname });
 })
 
 app.get('/earthquakes', (req, resp) => {
   // Read from database, return it to clients as JSON
   console.log('HELLO! This is /earthquakes.')
   let earthquakes = readEarthquakes()
+  resp.setHeader('Content-Type', 'application/json')
+  resp.status(200).end(JSON.stringify(earthquakes.slice(0, 5)))
 })
