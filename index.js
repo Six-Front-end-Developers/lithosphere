@@ -1,6 +1,16 @@
-import { Earthquake } from "./earthquake.js";
 
 var vueInstance;
+class Earthquake {
+    constructor(mag, place, time, tz, lat, lon, depth) {
+        this.mag = mag
+        this.place = place
+        this.time = time
+        this.tz = tz
+        this.lat = lat
+        this.lon = lon
+        this.depth = depth
+    }
+}
 
 $(document).ready(function() {
     let EQ1 = [new Earthquake(6, "japan", 132, 420, 38.3, 142, 2),new Earthquake(6, "japan", 132, 420, 28.3, 142, 2)]
