@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js --exec babel-node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,11 @@
     "better-sqlite3": "^5.4.3",
     "express": "^4.17.1",
     "package.json": "^2.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.6.0",
+    "nodemon": "^1.19.2"
   }
 }
