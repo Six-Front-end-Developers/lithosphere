@@ -11,18 +11,26 @@ class Earthquake {
     }
 }
 
-let filteredList = []
+var earthquakeList = []
+var filteredList = []
 
-function filterEarthquakesForDate(fromDate, toDate) {
-  filteredList = earthquakeList.filter((eq) => {
+function filterEarthquakesForDate(fromDate, toDate, earthquakes) {
+  filteredList = filteredList.filter((eq) => {
     return fromDate <= eq.time <= toDate
   })
+  
+  print(earthquakeList)
+  print(filteredList)
 }
 
-function filterEarthquakesForMagnitude(from, to) {
-  filteredList = earthquakeList.filter((eq) => {
-    return from <= eq.magnitude <= to
+function filterEarthquakesForMagnitude(from, to, earthquakes) {
+  var i = 0
+  filteredList = filteredList.filter((eq) => {
+    if (eq.mag >= from && eq.mag <= to) i++
+    console.log(`EQMAG: ${eq.mag}, FROM: ${from}, TO: ${to}, true: ${eq.mag >= from && eq.mag <= to}`)
+    return eq.mag >= from && eq.mag <= to
   })
+  console.log(filteredList)
 }
 
 
@@ -34,38 +42,54 @@ $(document).ready(function() {
         var toDate = $('#datepicker-to').datepicker('getDate');
         console.log(newFromDate)
         console.log(toDate)
-        filterEarthquakesForDate(newFromDate.getTime(), toDate.getTime())
+        updateFilterForDate(newFromDate.getTime(), toDate.getTime())
+        loadEarthquakes(filteredList)
       }
     });
     $('#datepicker-to').datepicker({
         defaultDate: new Date("09/07/2019"),
         onSelect: function (newToDate) {
-        console.log(fromDate)
-        console.log(newToDate)
-        var fromDate = $('#datepicker-from').datepicker('getDate');
-        var newToDate = $('#datepicker-to').datepicker('getDate');
-        filterEarthquakesForDate(fromDate.getTime(), newToDate.getTime())
+          var fromDate = $('#datepicker-from').datepicker('getDate');
+          var newToDate = $('#datepicker-to').datepicker('getDate');
+          console.log(fromDate)
+          console.log(newToDate)
+          updateFilterForDate(fromDate.getTime(), newToDate.getTime())
+          loadEarthquakes(filteredList)
       }
     });
-  $(".js-range-slider").ionRangeSlider({
-    type: "double",
-    min: 5,
-    max: 10,
-    step: 0.1,
-    onFinish: function (slider) {
-      console.log(slider.from)
-      console.log(slider.to)
-      filterEarthquakesForMagnitude(slider.from, slider.to)
-    }
-  });
+    $(".js-range-slider").ionRangeSlider({
+      type: "double",
+      min: 9,
+      max: 10,
+      step: 0.1,
+      onFinish: function (slider) {
+        console.log(slider.from)
+        console.log(slider.to)
+        updateFilterForMagnitude(slider.from, slider.to)
+        loadEarthquakes(filteredList)
+      }
+    });
 
     $.ajax({
         type: "GET",
         url: "http://localhost:8000/earthquakes",
         dataType: 'json',
         success: function(earthquakes){
+            earthquakeList = earthquakes
+            filteredList = earthquakes
+            // Set earthquakes, then filter
+            var fromDate = $('#datepicker-from').datepicker('getDate');
+            var toDate = $('#datepicker-to').datepicker('getDate');
+            console.log(fromDate)
+            console.log(toDate)
+            var slider = $(".js-range-slider").data("ionRangeSlider").result;
+            var x = filterEarthquakesForMagnitude(slider.from, slider.to)
+            console.log(fromDate.getTime())
+            filterEarthquakesForDate(fromDate.getTime(), toDate.getTime())
+
             console.log(earthquakes);
-            loadEarthquakes(earthquakes);
+            console.log(filteredList)
+            loadEarthquakes(filteredList);
         },
         error: function( xhr, status, errorThrown ) {
             /* Temp, for debugging. Remove/alter before push to production. */
@@ -85,6 +109,21 @@ $(document).ready(function() {
     })
 
 })
+
+function updateFilterForMagnitude(from, to) {
+  filteredList = earthquakeList.slice()
+  var fromDate = $('#datepicker-from').datepicker('getDate');
+  var toDate = $('#datepicker-to').datepicker('getDate');
+  filterEarthquakesForDate(fromDate.getTime(), toDate.getTime())
+  filterEarthquakesForMagnitude(from, to)
+}
+
+function updateFilterForDate(fromDate, toDate) {
+  filteredList = earthquakeList.slice()
+  filterEarthquakesForDate(fromDate, toDate)
+  var slider = $(".js-range-slider").data("ionRangeSlider").result;
+  filterEarthquakesForMagnitude(slider.from, slider.to)
+}
 
 function toggleOptions() {
     $('#options').toggle();
