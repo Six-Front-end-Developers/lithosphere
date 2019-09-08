@@ -26,3 +26,11 @@ app.get('/earthquakes', (req, resp) => {
   resp.setHeader('Content-Type', 'application/json')
   resp.status(200).end(JSON.stringify(earthquakes.slice(0, 5)))
 })
+
+app.post('/earthquakes', (req, resp) => {
+  let mag = req.query.mag
+  console.log(`MAGNITUDE ${mag}`)
+  // Read from database using parameters specified by client
+  resp.setHeader('Content-Type', 'application/json')
+  resp.status(200).end(JSON.stringify(earthquakes.slice(0, 5)))
+})
