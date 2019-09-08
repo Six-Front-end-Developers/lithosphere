@@ -116,12 +116,14 @@ function toggleOptions() {
 }
 
 function loadEarthquakes(earthquakes) {
+    console.log(earthquakes)
     someMarkers = []
     for (var eq of earthquakes) {
         someMarkers.push({
             latLng: [eq.latitude, eq.longitude],
             name: eq.place,
-            mag: eq.mag
+            mag: eq.mag,
+            time: eq.time
         })
     }
 
@@ -137,8 +139,11 @@ function loadEarthquakes(earthquakes) {
         onMarkerTipShow: function(event,label,index){
             var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
             let current = markers[index].config
+            var timeString = getStringForEpoch(current.time)
             label.html(
-                '<b>'+current.name.charAt(0).toUpperCase() + current.name.slice(1) +'</b><br/>'+ "Magnitude: " + current.mag +'</br>'
+                '<b>'+current.name.charAt(0).toUpperCase() + current.name.slice(1) +'</b><br/>'
+                + "Magnitude: " + current.mag +'<br/>' +
+                "Date: " + timeString + '<br/>'
             );
         },
         onRegionTipShow: function(e, el, code){
@@ -146,6 +151,20 @@ function loadEarthquakes(earthquakes) {
         }
     });
     
+}
+
+function getStringForEpoch(epoch) {
+    console.log(epoch)
+    var date = new Date(epoch)
+
+    var year = date.getYear() + 1900
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hours = date.getHours()
+    var minutes = date.getMinutes()
+
+    console.log(year)
+    return `${year}-${month}-${day} ${hours}:${minutes}`
 }
 
 function updateEarthquakes(earthquakes) {
