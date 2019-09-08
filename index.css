@@ -4,6 +4,10 @@ body {
     margin-right: 10%;
 }
 
+#header-wrapper {
+    padding: 5px;
+}
+
 #world-map-wrapper {
     height: 80vh;
 }
