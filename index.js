@@ -15,7 +15,8 @@ $(document).ready(function() {
     let exampleCoord = [[38.30,142.40],'Tokyo, Magnitude: 9, Date: 2011'];
     let exampleCoord2 = [[50,100.40],'Tokyo, Magnitude: 9, Date: 2011'];
     $(function(){
-        $('#world-map').vectorMap({map: 'world_mill',
+        $('#world-map').vectorMap({
+        map: 'world_mill',
         markerStyle: {
             initial: {
                 fill: '#f52222',
@@ -23,10 +24,16 @@ $(document).ready(function() {
             }
         },
         markers: [
-            {latLng: exampleCoord[0], name: exampleCoord[1]},
+            {latLng: exampleCoord[0], name: exampleCoord[1], Magnitude: new Earthquake(6,6,6,6,6,6,6)},
             {latLng: exampleCoord2[0], name: exampleCoord2[1], style: {fill: '#344533'}},
             
-        ]
+        ],
+        onMarkerTipShow: function(event,label,index){
+            var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
+            label.html(
+                '<b>'+markers[index].config.Magnitude.mag +'</b><br/>'+exampleCoord2[1]+'</br>'
+            );
+        }
     });
         $('#datepicker-from').datepicker();
         $('#datepicker-to').datepicker();
