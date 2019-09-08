@@ -1,10 +1,14 @@
+import { Earthquake } from "./earthquake.js";
+
 var vueInstance;
 
 $(document).ready(function() {
+    let EQ1 = [new Earthquake(6, "japan", 132, 420, 38.3, 142, 2),new Earthquake(6, "japan", 132, 420, 28.3, 142, 2)]
     let exampleCoord = [[38.30,142.40],'Tokyo, Magnitude: 9, Date: 2011'];
     let exampleCoord2 = [[50,100.40],'Tokyo, Magnitude: 9, Date: 2011'];
     $(function(){
-        $('#world-map').vectorMap({map: 'world_mill',
+        $('#world-map').vectorMap({
+        map: 'world_mill',
         markerStyle: {
             initial: {
                 fill: '#f52222',
@@ -12,10 +16,15 @@ $(document).ready(function() {
             }
         },
         markers: [
-            {latLng: exampleCoord[0], name: exampleCoord[1]},
-            {latLng: exampleCoord2[0], name: exampleCoord2[1], style: {fill: '#344533'}},
+            {latLng: [EQ1[0].lat, EQ1[0].lon], Magnitude: EQ1[0].mag},
             
-        ]
+        ],
+        onMarkerTipShow: function(event,label,index){
+            //var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
+            //label.html(
+            //    '<b>'+markers[index].config.mag +'</b><br/>'+exampleCoord2[1]+'</br>'
+            //);
+        }
     });
         $('#datepicker-from').datepicker();
         $('#datepicker-to').datepicker();
