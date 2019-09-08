@@ -136,8 +136,11 @@ function loadEarthquakes(earthquakes) {
             var markers = $('#world-map').vectorMap('get', 'mapObject').markers;
             let current = markers[index].config
             label.html(
-                '<b>'+current.mag +'</b><br/>'+ current.latLng +'</br>'
+                '<b>'+current.name.charAt(0).toUpperCase() + current.name.slice(1) +'</b><br/>'+ "Magnitude: " + current.mag +'</br>'
             );
+        },
+        onRegionTipShow: function(e, el, code){
+            e.preventDefault();
         }
     });
     
