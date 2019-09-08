@@ -11,6 +11,21 @@ class Earthquake {
     }
 }
 
+let filteredList = []
+
+function filterEarthquakesForDate(fromDate, toDate) {
+  filteredList = earthquakeList.filter((eq) => {
+    return fromDate <= eq.time <= toDate
+  })
+}
+
+function filterEarthquakesForMagnitude(from, to) {
+  filteredList = earthquakeList.filter((eq) => {
+    return from <= eq.magnitude <= to
+  })
+}
+
+
 $(document).ready(function() {
     $('#datepicker-from').datepicker({
         defaultDate: new Date("01/01/2000")
